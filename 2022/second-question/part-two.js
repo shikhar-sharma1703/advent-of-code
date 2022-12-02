@@ -12,6 +12,12 @@ let win = {
     'C' : 'X',
 }
 
+let draw = {
+    'A' : 'X',
+    'B' : 'Y',
+    'C' : 'Z',
+}
+
 let lose = {
     'A' : 'Z',
     'B' : 'X',
@@ -22,15 +28,17 @@ let finalScore = 0
 
 input.forEach((line) => {
     let [a, b] = line.split(' ');
-    if (win[a] === b) {
-        finalScore += score[b] + 6;
-    } else if (lose[a] === b) {
-        finalScore += score[b];
+    switch (b){
+        case 'X':
+            finalScore += score[lose[a]]
+            break;
+        case 'Y':
+            finalScore += score[draw[a]] + 3
+            break;
+        case 'Z':
+            finalScore += score[win[a]] + 6
+            break;
     }
-    else{
-        finalScore += score[b] + 3;
-    }
-
 })
 
 console.log(finalScore)
