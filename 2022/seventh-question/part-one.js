@@ -57,21 +57,22 @@ const calculateEachDirectorySize = (input) => {
     return directories
 }
 
+const result = calculateEachDirectorySize(input);
+const sortedResult = Object.entries(result).sort((a, b) => b[1] - a[1])
+const highestSize = sortedResult[0][1]
 
-
-console.log(calculateEachDirectorySize(input))
-
-let resultArray = Object.values(calculateEachDirectorySize(input))
-
-let result = 0
-
-for (let i = 0; i < resultArray.length; i++) {
-    if(resultArray[i] < 100000){
-        result += resultArray[i]
-    }
+const calculateFileToBeDeleted = (sortedResult) => {
+    const spaceLeft = 70000000 - highestSize;
+    const spaceRequired = 30000000 - spaceLeft;
+    console.log(spaceLeft)
+    const directoriesWhichCanBeDeleted = []
+    sortedResult.forEach((directory, index) => {
+        if(directory[1] >= spaceRequired) {
+            directoriesWhichCanBeDeleted.push(directory)
+        }
+    })
+    console.log(directoriesWhichCanBeDeleted)
 }
 
-console.log(result)
+calculateFileToBeDeleted(sortedResult)
 
-
-// 1581595
